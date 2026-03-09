@@ -1,1 +1,1 @@
-MYSQL_HOST = mysql-dev.practice25.online
+MYSQL_HOST : mysql-dev.practice25.online

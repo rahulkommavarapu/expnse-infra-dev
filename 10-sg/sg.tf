@@ -131,7 +131,7 @@ resource "aws_security_group_rule" "vpn_1194" {
   security_group_id = module.vpn_sg.sg_id
 }
 
-# Create the Security Group for RDS 
+# # Create the Security Group for RDS  ,Mysql Accepting the Traffic From Bastion Host
 resource "aws_security_group_rule" "mysql_bastion" {
   type                     = "ingress"
   from_port                = 3306
@@ -139,4 +139,23 @@ resource "aws_security_group_rule" "mysql_bastion" {
   protocol                 = "tcp"
   source_security_group_id = module.bastion_sg.sg_id
   security_group_id        = module.mysql_sg.sg_id
+}
+# Create the Security Group for, Mysql Accepting the Traffic from VPN as well
+resource "aws_security_group_rule" "mysql_vpn" {
+  type                     = "ingress"
+  from_port                = 3306
+  to_port                  = 3306
+  protocol                 = "tcp"
+  source_security_group_id = module.vpn_sg.sg_id
+  security_group_id        = module.mysql_sg.sg_id
+
+}
+# Create the Secuity Group for Backend VPN 
+resource "aws_security_group_rule" "backend_vpn" {
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  source_security_group_id = module.vpn_sg.sg_id
+  security_group_id = module.backend_sg.sg_id
 }

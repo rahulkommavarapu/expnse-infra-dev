@@ -40,7 +40,7 @@ resource "aws_lb_listener" "http" {
 # Create the Route53 Record for Domain NAME System 
 resource "aws_route53_record" "app_alb" {
   zone_id = var.zone_id
-  name    = "*.app-dev.${var.domain_name}"
+  name    = "*.app-dev1.${var.domain_name}"
   type    = "A"
   # this are the Application Load Balancer name and zone information
   alias {

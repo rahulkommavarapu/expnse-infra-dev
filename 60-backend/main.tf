@@ -1,3 +1,5 @@
+#Create the Backedend Instance 
+
 resource "aws_instance" "backend" {
   ami                    = data.aws_ami.joindevops.id
   vpc_security_group_ids = [data.aws_ssm_parameter.backend_sg_id.value]
@@ -13,10 +15,11 @@ resource "aws_instance" "backend" {
     }
   )
 }
-resource "null_resource" "cluster" {
+# Create the Null Resource here
+resource "null_resource" "backend" {
   # Changes to any instance of the cluster requires re-provisioning
   triggers = {
-    instance_ids = aws_instance.backend.id
+        instance_id = aws_instance.backend.id
   }
 
   # Bootstrap script can run on any instance of the cluster
@@ -25,20 +28,20 @@ resource "null_resource" "cluster" {
     host = aws_instance.backend.private_ip
     type = "ssh"
     user = "ec2-user"
-    password = "DevOps321"
+    password  = "DevOps321"
   }
-  # Copy The Script to run 
-  provisioner "file" {
+
+  provisioner  "file" {
     source = "backend.sh"
-    destination = "/tmp/backend.sh" # it is Put in the .pem file in Server
-    
+    destination = "/tmp/backend.sh"
   }
+
 
   provisioner "remote-exec" {
     # Bootstrap script called with private_ip of each node in the cluster
     inline = [
-       "chmod +x = /tmp/backend.sh",
-       "sudo sh /tmp/backend.sh  ${var.environment}" # it is executed in the Server
+     "chmod +x /tmp/backend.sh",
+     "sudo sh /tmp/backend.sh ${var.environment}"
     ]
   }
 }

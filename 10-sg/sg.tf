@@ -154,8 +154,17 @@ resource "aws_security_group_rule" "mysql_vpn" {
 resource "aws_security_group_rule" "backend_vpn" {
   type              = "ingress"
   from_port         = 22
-  to_port           = 22
+  to_port           = 22    # here the Take the Ssh access from Port no 22
   protocol          = "tcp"
   source_security_group_id = module.vpn_sg.sg_id
   security_group_id = module.backend_sg.sg_id
+}
+# Create the Security Group for mysql backend
+resource "aws_security_group_rule" "mysql_backend" {
+  type              = "ingress"
+  from_port         = 3306
+  to_port           = 3306   # here the Take the mysql access from Port no 3306
+  protocol          = "tcp"
+  source_security_group_id = module.backend_sg.sg_id # Source
+  security_group_id = module.mysql_sg.sg_id  # Destination Source mysql
 }

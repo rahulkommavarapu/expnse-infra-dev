@@ -1,3 +1,4 @@
+
 resource "aws_ssm_parameter" "vpc_id" {
  name = "/${var.project_name}/${var.environment}/vpc_id"
  type = "String"
@@ -25,3 +26,16 @@ resource "aws_ssm_parameter" "database_subnet_ids"{
     type = "StringList"
     value = join (",",module.vpc.database_subnet_ids)
 }
+#Craete the SSM Parameter for RDS
+
+resource "aws_ssm_parameter" "database_subnet_group_name" {
+  name  = "/${var.project_name}/${var.environment}/database_subnet_group_name"
+  type  = "String"
+  value = aws_db_subnet_group.expense.name
+}
+# Create the Password for RDS
+# resource "aws_ssm_parameter" "db_password" {
+#   name  = "/expense/dev/db_password"
+#   type  = "SecureString"
+#   value = "ExpenseApp123"
+# }

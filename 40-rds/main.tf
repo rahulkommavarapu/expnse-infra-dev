@@ -1,23 +1,23 @@
 module "db" {
-  source     = "terraform-aws-modules/rds/aws"
+  source = "terraform-aws-modules/rds/aws"
+
   identifier = local.resource_name #expense-dev
+
 
   engine            = "mysql"
   engine_version    = "8.0.40"
   instance_class    = "db.t4g.micro"
   allocated_storage = 20
 
-  db_name  = "transactions" # AWS will create this schema automatically
+  db_name  = "transactions"
   username = "root"
   port     = "3306"
 
-  # master_password = data.aws_ssm_parameter.db_password.value
-  manage_master_user_password = true
-
-  vpc_security_group_ids = [module.mysql_sg_id]
+  manage_master_user_password = true # here the Value is given TRUE There is NO need to give the password ,terraform automatically store the password in SECRETE MANAGER.
+  vpc_security_group_ids      = [local.mysql_sg_id]
 
   # DB subnet group
-  create_db_subnet_group = false
+  create_db_subnet_group = false # Now it is Created by one time itself in the Projects
   db_subnet_group_name   = local.database_subnet_group_name
 
   # DB parameter group
@@ -28,7 +28,7 @@ module "db" {
 
   # Database Deletion Protection
   deletion_protection = false
-  skip_final_snapshot = true
+  skip_final_snapshot = true # for Auto Delete Snapshots 
 
   parameters = [
     {
@@ -55,9 +55,9 @@ module "db" {
           value = "37"
         },
       ]
-    },
-  ]
+    }
 
+  ]
   tags = merge(
     var.common_tags,
     {
@@ -65,11 +65,11 @@ module "db" {
     }
   )
 }
-
-# resource "aws_route53_record" "www-dev" {
-#   zone_id = var.zone_id
-#   name    = "mysql-${var.environment}.${var.domain_name}"
-#   type    = "CNAME"
-#   ttl     = 5
-#   records = [module.db.db_instance_address]
-# }
+# Create the record for RDS  (terraform aws CNAME Route53 Record )
+resource "aws_route53_record" "www-dev" {
+  zone_id = var.zone_id
+  name    = "mysql-${var.environment}.${var.domain_name}"
+  type    = "CNAME"
+  ttl     = 5
+  records = [module.db.db_instance_address]
+}

@@ -2,19 +2,19 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "6.28"
+      version = "6.28.0"
     }
   }
+
   backend "s3" {
-    bucket         = "83s-remote-state-devlop" 
-    key            = "expense-dev-rds"
-    region         = "us-east-1"
+    bucket = "83s-remote-state-devlop"
+    key    = "expense-dev-rds" # you should have unique keys with in the bucket, same key should not be used in other repos or tf projects
+    region = "us-east-1"
     dynamodb_table = "83s-remote-state-devlop"
   }
-
-
 }
 
 provider "aws" {
+  # Configuration options
   region = "us-east-1"
 }

@@ -4,17 +4,18 @@ terraform {
       source  = "hashicorp/aws"
       version = "6.28.0"
     }
+  }  
+  # To store the State file in S3 Bucket 
+  backend "s3" {
+    bucket         = "83s-remote-state-devlop"  # Bucket Name
+    key            = "expense-dev-backend" # bucket Key
+    region         = "us-east-1"               
+    dynamodb_table = "83s-remote-state-devlop" # buckect lock purpose
   }
 
-  backend "s3" {
-    bucket         = "83s-remote-state-devlop"
-    key            = "expense-dev-backend" # you should have unique keys with in the bucket, same key should not be used in other repos or tf projects
-    region         = "us-east-1"
-    dynamodb_table = "83s-remote-state-devlop"
-  }
+
 }
 
 provider "aws" {
-  # Configuration options
   region = "us-east-1"
 }

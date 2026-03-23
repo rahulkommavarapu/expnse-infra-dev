@@ -14,7 +14,7 @@ module "db" {
   # password = "expense@123"
   port     = "3306"
 
-  manage_master_user_password = false # here the Value is given TRUE There is NO need to give the password ,terraform automatically store the password in SECRETE MANAGER.
+  manage_master_user_password = true # here the Value is given TRUE There is NO need to give the password ,terraform automatically store the password in SECRETE MANAGER.
   vpc_security_group_ids      = [local.mysql_sg_id]
 
   # DB subnet group

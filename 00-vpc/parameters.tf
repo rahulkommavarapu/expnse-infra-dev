@@ -39,3 +39,9 @@ resource "aws_ssm_parameter" "database_subnet_group_name" {
 #   type  = "SecureString"
 #   value = "ExpenseApp123"
 # }
+
+resource "aws_ssm_parameter" "vpc_id" {
+  name  = "/expense/dev/vpc_id"
+  type  = "String"
+  value = aws_vpc.main.id
+}

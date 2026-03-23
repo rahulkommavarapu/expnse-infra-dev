@@ -34,14 +34,9 @@ resource "aws_ssm_parameter" "database_subnet_group_name" {
   value = aws_db_subnet_group.expense.name
 }
 # Create the Password for RDS
-# resource "aws_ssm_parameter" "db_password" {
-#   name  = "/expense/dev/db_password"
-#   type  = "SecureString"
-#   value = "ExpenseApp123"
-# }
-
-resource "aws_ssm_parameter" "vpc_id" {
-  name  = "/expense/dev/vpc_id"
-  type  = "String"
-  value = aws_vpc.main.id
+resource "aws_ssm_parameter" "db_password" {
+  name  = "/expense/dev/db_password"
+  type  = "SecureString"
+  value = "ExpenseApp123"
 }
+

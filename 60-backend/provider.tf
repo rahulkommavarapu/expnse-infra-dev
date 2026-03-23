@@ -2,18 +2,16 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "6.28.0"
+      version = ">= 5.0"
     }
-  }  
-  # To store the State file in S3 Bucket 
-  backend "s3" {
-    bucket         = "83s-remote-state-devlop"  # Bucket Name
-    key            = "expense-dev-backend" # bucket Key
-    region         = "us-east-1"               
-    dynamodb_table = "83s-remote-state-devlop" # buckect lock purpose
   }
 
-
+  backend "s3" {
+    bucket         = "83s-remote-state-devlop" 
+    key            = "expense-dev-backend"
+    region         = "us-east-1"
+    dynamodb_table = "83s-remote-state-devlop"
+  }
 }
 
 provider "aws" {

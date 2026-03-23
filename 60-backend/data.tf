@@ -25,8 +25,3 @@ data "aws_ssm_parameter" "backend_sg_id" {
 data "aws_ssm_parameter" "private_subnet_ids" {
  name = "/${var.project_name}/${var.environment}/private_subnet_ids"
 }
-
-# then Execution for child Module expense-infra-dev /20-bastion
-
-
-

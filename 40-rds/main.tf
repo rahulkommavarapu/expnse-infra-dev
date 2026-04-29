@@ -11,7 +11,7 @@ module "db" {
 
   db_name  = "transactions"
   username = "root"
-  # password = "expense@123"
+  # password = data.aws_ssm_parameter.db_password.value 
   port     = "3306"
 
   manage_master_user_password = true # here the Value is given TRUE There is NO need to give the password ,terraform automatically store the password in SECRETE MANAGER.

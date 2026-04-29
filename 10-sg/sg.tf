@@ -150,7 +150,7 @@ resource "aws_security_group_rule" "mysql_vpn" {
   security_group_id        = module.mysql_sg.sg_id
 
 }
-# Create the Secuity Group for Backend VPN 
+# Create the Secuity Group for Backend in VPN 
 resource "aws_security_group_rule" "backend_vpn" {
   type              = "ingress"
   from_port         = 22
@@ -159,7 +159,7 @@ resource "aws_security_group_rule" "backend_vpn" {
   source_security_group_id = module.vpn_sg.sg_id
   security_group_id = module.backend_sg.sg_id
 }
-# Create the Security Group for mysql backend
+# Create the Security Group for  backend with mysql in VPN
 resource "aws_security_group_rule" "mysql_backend" {
   type              = "ingress"
   from_port         = 3306

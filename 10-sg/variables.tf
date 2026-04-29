@@ -28,6 +28,9 @@ variable "sg_tags" {
   }
 }
 
+variable "db_password" {
+  sensitive = true
+}
 
 
 

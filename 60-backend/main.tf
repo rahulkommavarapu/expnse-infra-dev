@@ -1,5 +1,5 @@
 
-# Here Create the Instance with Backend Name 
+# Here Create the Instance with Backend Server 
 resource "aws_instance" "backend" {
   ami                    = data.aws_ami.joindevops.id
   vpc_security_group_ids = [data.aws_ssm_parameter.backend_sg_id.value]

@@ -7,3 +7,7 @@ data "aws_ssm_parameter" "public_subnet_ids" {
 data "aws_ssm_parameter" "database_subnet_group_name" {
     name = "/${var.project_name}/${var.environment}/database_subnet_group_name"
 }
+data "aws_ssm_parameter" "db_password" {
+  name            = "/${var.project_name}/${var.environment}/expense_dev_db_password"
+  with_decryption = true
+}

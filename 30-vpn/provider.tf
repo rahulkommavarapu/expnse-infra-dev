@@ -9,7 +9,7 @@ terraform {
     bucket         = "83s-remote-state-env" 
     key            = "expense-dev-vpn"
     region         = "us-east-1"
-    dynamodb_table = "83s-remote-state-devlop"
+    # dynamodb_table = "83s-remote-state-devlop"
     use_lockfile = true
   }
 

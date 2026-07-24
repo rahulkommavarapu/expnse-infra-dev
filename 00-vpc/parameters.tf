@@ -37,6 +37,6 @@ resource "aws_ssm_parameter" "database_subnet_group_name" {
 resource "aws_ssm_parameter" "db_password" {
   name  = "/expense/dev/db_password"
   type  = "SecureString"
-  value = "ExpenseApp123"
+  value = "ExpenseApp1"
 }
 

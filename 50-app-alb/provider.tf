@@ -7,10 +7,11 @@ terraform {
   }  
   # To store the State file in S3 Bucket 
   backend "s3" {
-    bucket         = "83s-remote-state-devlop"  # Bucket Name
+    bucket         = "83s-remote-state-env"  # Bucket Name
     key            = "expense-dev-app-alb" # bucket Key
     region         = "us-east-1"               
-    dynamodb_table = "83s-remote-state-devlop" # buckect lock purpose
+    # dynamodb_table = "83s-remote-state-devlop" # buckect lock purpose
+    use_lockfile = true
   }
 
 
